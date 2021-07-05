@@ -9,20 +9,25 @@ namespace net5backend
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-        }        
+            Env = env;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var mvcBuilder = services.AddControllersWithViews();
+            if (Env.IsDevelopment())
+                mvcBuilder.AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (Env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
