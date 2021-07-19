@@ -6,15 +6,6 @@ namespace net5backend.Controllers
 {
     public class AccountController : Controller
     {
-		public IActionResult Login()
-		{
-			if (this.User.Identity.IsAuthenticated)
-			{
-				return View();
-			}
-			return View();
-		}
-
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel model)
 		{
@@ -31,6 +22,5 @@ namespace net5backend.Controllers
 		{
 			return View();
 		}
-
 	}
 }
